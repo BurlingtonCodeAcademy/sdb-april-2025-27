@@ -78,6 +78,32 @@ app.get('/api/data', async (req, res) => {
     }
 });
 
+// GET - /api/users - get all users from db.json file
+app.get("/api/users", async (req, res) => {
+    try {
+        const data = await fs.readFile(dbFilePath, "utf-8")
+        const db = JSON.parse(data)
+        console.log(db)
+        res.json(db.users || [])
+    } catch (error) {
+        console.error("we got a problem!")
+        console.log(error)
+    }
+})
+
+// GET - /api/posts - get all posts from db.json file
+app.get("/api/posts", async (req, res) => {
+    try {
+        const data = await fs.readFile(dbFilePath, "utf-8")
+        const db = JSON.parse(data)
+        console.log(db)
+        res.json(db.posts || [])
+    } catch (error) {
+        console.error("we got a problem!")
+        console.log(error)
+    }
+})
+
 app.listen(PORT, () => {
     console.log("API running!")
 })
