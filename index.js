@@ -91,6 +91,14 @@ app.get("/api/users", async (req, res) => {
     }
 })
 
+// GET - /api/users/:id - get a user by id
+
+// POST - /api/users - create a new user
+
+// PUT - /api/users/:id - update a user by id
+
+// DELETE - api/users/:id - delete a user by id
+
 // GET - /api/posts - get all posts from db.json file
 app.get("/api/posts", async (req, res) => {
     try {
@@ -103,6 +111,14 @@ app.get("/api/posts", async (req, res) => {
         console.log(error)
     }
 })
+
+// GET - /api/posts/:id - get a post by id
+
+// POST - /api/posts - create a new post
+
+// PUT - /api/posts/:id - update a post by id
+
+// DELETE - api/posts/:id - delete a post by id
 
 app.listen(PORT, () => {
     console.log("API running!")
