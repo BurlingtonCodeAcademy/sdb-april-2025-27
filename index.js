@@ -1,5 +1,17 @@
 const fs = require('fs').promises;
 const path = require('path')
+const express = require('express')
+
+const app = express();
+const PORT = 8080;
+
+// path to the db.json file
+const dbFilePath = path.join(__dirname, "db.json")
+
+console.log(dbFilePath)
+
+// middleware to parse the body of a POST/PUT/PATCH request
+app.use(express.json())
 
 async function fileOperationsDemo() {
     const fileName = "demo.txt"
@@ -46,4 +58,26 @@ async function fileOperationsDemo() {
     }
 }
 
-fileOperationsDemo()
+// runs the operations demo above
+// fileOperationsDemo()
+
+app.get("/api/health", (req, res) => {
+    res.send("We are so hot! and the API is alive...")
+})
+
+// GET - /api/data - get ALL data from the db.json file
+app.get('/api/data', async (req, res) => {
+    try {
+        console.log("reading json file...")
+        const data = await fs.readFile(dbFilePath, "utf-8")
+        const jsonData = JSON.parse(data)
+        res.json(jsonData)
+    } catch (err) {
+        console.error('Failed to read or parse db.json:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.listen(PORT, () => {
+    console.log("API running!")
+})
